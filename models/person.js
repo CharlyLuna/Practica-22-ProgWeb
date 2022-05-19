@@ -17,6 +17,10 @@ const PersonSchema = new Schema({
     type: String,
     required: true,
   },
+  nss: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = model("Person", PersonSchema); //* Lo importamos para usarlo en server.js

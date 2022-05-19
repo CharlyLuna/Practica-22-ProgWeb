@@ -17,30 +17,22 @@ router.get("/students", function (req, res, next) {
 });
 
 // Agregamos la ruta /student pues la que va a contestar al post del formulario
-router.post("/student", async (req, res) => {
+router.post("/addStudent", async (req, res) => {
   //* Obtenemos del body los parametros de fname y lname
-  const { fname, lname, age, blood } = req.body;
+  const { fname, lname, age, blood, nss } = req.body;
   // * Utilizamos el modelo person para crear una nueva persona con los datos que se mandaron por el body
-  var newPerson = new Person({
+  var newStudent = new Person({
     firstName: fname,
     lastName: lname,
     age: age,
     blood: blood,
+    nss: nss,
   });
-  console.log("se mandó a la BD:" + newPerson);
+  console.log("se mandó a la BD:" + newStudent);
   //* Mandamos el objeto a la BD
-  await newPerson.save();
+  await newStudent.save();
   //Devolvemos los valores que pusimos en el formulario mediante el objeto body que nos proporciona express
-  res.send(`First Name es: ${req.body.fname}, Last Name es: ${req.body.lname}`);
+  res.send(`Se agregó el estudiante: ${req.body.fname} ${req.body.lname}`);
 }); // Con req.body podemos acceder a los valores que se esten pasando por el body con la notacion del punto
-
-// gregamos este metodo que va a mostrar en consola lo que contiene el body (El cual es un objeto)
-router.post("/personjson", express.json({ type: "*/*" }), (req, res) => {
-  //Gracias a que en el archivo ejs hacemos el parseo primero hacia string ahora aqui lo podemos convertir de nuevo a contenido json
-  console.log("El objeto contiene:", req.body);
-  console.log("Nombre:", req.body.firstname);
-  console.log("Apellido:", req.body.lastname);
-  //Ahora simplemente en el body lo que sacamos sera un objeto con sus debidas keys especificadas en el archivo index.ejs
-});
 
 module.exports = router;
