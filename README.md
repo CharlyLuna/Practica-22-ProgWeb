@@ -1,3 +1,3 @@
-# Practica-20-ProgWeb
+# Practica-21-ProgWeb
 
-Esta es la practica 20 de la materia de programación web, en esta se busca poder mandar datos a traves de un objeto hacia la base de datos de mongo.
+Esta es la practica 21 de la materia de programación web, en esta se busca poder mostrar de una forma mas limpia los datos almacenados en nuestra BD.
