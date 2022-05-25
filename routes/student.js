@@ -5,14 +5,15 @@ require("../database");
 
 // Agregamos el get de la vista estudiante para que podamos ver el formulario donde esta el boton para hacer la operacion post
 router.get("/student", (req, res) => {
-  res.render("index");
+  res.render("student");
 });
 
 // *Agregamos este get para devolver un json con todos los estudiantes que se agregaron a la BD
 router.get("/students", function (req, res, next) {
-  Person.find(function (err, persons) {
+  Person.find(function (err, students) {
     if (err) return next(err);
-    res.json(persons);
+    res.render("studentsIndex", { students });
+    //*Ahora mostraremos una pagina donde estara formateado los datos de los estudiantes en una tabla
   });
 });
 
