@@ -29,11 +29,14 @@
           <td><%=student.lastName%></td>
           <td><%=student.age%></td>
           <td><%=student.blood%></td>
+          <td><a href="<%= `deleteStudent/${student.id}` %>">Delete</a></td>
+          <td><a href="<%= `findById/${student.id}` %>">Update</a></td>
         </tr>
         <% }); %>
+        <!--Se añadieron tambien las rutas para borrar y actualizar los diversos objetos que hay en la BD-->
       </tbody>
     </table>
     <br />
-    <a href="./main">Back</a><br />
+    <a href="../main">Back</a><br />
   </body>
 </html>

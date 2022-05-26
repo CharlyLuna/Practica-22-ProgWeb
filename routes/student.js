@@ -36,4 +36,42 @@ router.post("/addStudent", async (req, res) => {
   res.send(`Se agregó el estudiante: ${req.body.fname} ${req.body.lname}`);
 }); // Con req.body podemos acceder a los valores que se esten pasando por el body con la notacion del punto
 
+//* Agregamos un metodo para eliminar a un estudiante de la BD
+router.get("/deleteStudent/:id", function (req, res) {
+  //*Usamos esta funcion ya establecida para poder ubicar el id del objeto de la BD y eliminarlo
+  Person.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+    if (err) return next(err);
+    //* Redirigimos a la pantalla de la tabla para que se vea visualmente el cambio que se hizo
+    res.redirect("/students");
+  });
+});
+
+//* Añadimos la ruta que se encargara de renderizar la pagina donde se modificaran los datos para la actualizacion del objeto
+router.get("/findById/:id", function (req, res) {
+  Person.findById(req.params.id, function (err, student) {
+    if (err) return next(err);
+    res.render("studentUpdate", { student });
+  });
+});
+
+//* Se hace uso del metodo post para actualizar el objeto con los datos modificados y mandarlo a la BD
+router.post("/updateStudent", function (req, res) {
+  Person.findByIdAndUpdate(
+    req.body.objID,
+    //* Enviamos el objeto con los datos modificados a la BD
+    {
+      firstName: req.body.fname,
+      lastName: req.body.lname,
+      age: req.body.age,
+      blood: req.body.blood,
+      nss: req.body.nss,
+    },
+    function (err, post) {
+      if (err) return next(err);
+      //* Redirigimos a la pagina para ver los cambios
+      res.redirect("/students");
+    }
+  );
+});
+
 module.exports = router;
